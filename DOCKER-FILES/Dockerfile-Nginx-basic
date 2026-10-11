@@ -1,7 +1,18 @@
+---Dockerfile---
+
 FROM nginx:latest                         # Use nginx:latest as the base image
-
 COPY index.html /usr/share/nginx/html/    # Copy our local index.html into NGINX web directory
-
 EXPOSE 80                                 # Document that the application uses port 80
-
 CMD ["nginx", "-g", "daemon off;"]        # Start NGINX in the foreground
+
+---EOF---
+
+
+---Dockerfile---
+
+FROM ubuntu:24.04                         # Base image
+WORKDIR /app                              # Create/use /app as working directory
+COPY . . 
+
+---EOF---
+
