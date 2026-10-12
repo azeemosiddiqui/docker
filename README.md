@@ -1,4 +1,22 @@
 # DOCKER COMMANDS
+
+# Important Points and commands
+1) All Docker flags (-d, --name, -p) must come before the image name. Docker treated them as arguments for the container instead of Docker options. Everything after the "IMAGE NAME" is passed as arguments to the container’s CMD / ENTRYPOINT.
+docker run --name mynginx -d -p 8081:80 mynginx-image:1   #CORRECT
+docker run -d -p 8081:80 mynginx-image:1 --name mynginx  #INCORRECT
+
+
+2) Docker cannot add a new -p port mapping to an already-created container. The usual solution is to recreate the container with the required port mapping.
+docker stop my-nginx                         # Stop the running container
+docker rm my-nginx                           # Remove the container
+docker run -d -p 8080:80 --name my-nginx nginx:latest    #Create container with port mapping
+
+docker exec -it CONTAINER bash
+                  └── Container already exists and is running
+docker run -it IMAGE bash
+                  └── Create and start a new container
+
+
 # docker run -d -p 8080:80 --name my-nginx-container my-nginx:1.0   #Run container
 _Command Explain
 docker run  ---> Create+start container
