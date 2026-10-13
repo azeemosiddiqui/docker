@@ -16,6 +16,9 @@ docker exec -it CONTAINER bash
 docker run -it IMAGE bash
                   └── Create and start a new container
 
+3) Build the image from dockerfile
+   docker build -t <image_name>:<tag> .
+   docker build -t nginx:latest .
 
 # docker run -d -p 8080:80 --name my-nginx-container my-nginx:1.0   #Run container
 _Command Explain
