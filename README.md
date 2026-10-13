@@ -16,9 +16,16 @@ docker exec -it CONTAINER bash
 docker run -it IMAGE bash
                   └── Create and start a new container
 
-3) Build the image from dockerfile
-   docker build -t <image_name>:<tag> .
-   docker build -t nginx:latest .
+# 3) Build the image from dockerfile
+     docker build -t <image_name>:<tag> .
+     docker build -t nginx:latest .
+     docker build -t <image_name> .  #If image tag is not given during image build command docker will automatically  give tag as "latest"
+     
+# 4) Build the image from dockerfile
+     docker run -d --name <container_name> <image_name>:<image_tag>  # -d --> container run in detach mode, terminal will not open
+     docker run -d --name nginx-container nginx:latest
+     docker run -d --name nginx-container nginx  #If image tag is not given during container creation docker will automatically use tag as "latest"
+     
 
 # docker run -d -p 8080:80 --name my-nginx-container my-nginx:1.0   #Run container
 _Command Explain
