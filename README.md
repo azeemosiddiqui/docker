@@ -20,8 +20,22 @@ docker run -it IMAGE bash
      docker build -t <image_name>:<tag> .
      docker build -t nginx:latest .
      docker build -t <image_name> .  #If image tag is not given during image build command docker will automatically  give tag as "latest"
-     
-# 4) Build the image from dockerfile
+
+# 3) Tag the image
+     docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]    #SOURCE_IMAGE—> existing image & TARGET_IMAGE—> new name or tag you want to assign.
+     docker tag mynginx:latest mynginx:v1
+     docker images
+        REPOSITORY   TAG       IMAGE ID
+        mynginx      latest    abc123
+        mynginx      v1        abc123  
+     docker tag abc123 mynginx:v2         #Tag the image using "image ID"
+     docker tag mynginx:v1 acrazeem.azurecr.io/mynginx:v1    #Change the tag to an Azure Container Registry name.You can tag the same image for pushing to your Azure Container Registry (ACR):
+     docker push acrazeem.azurecr.io/mynginx:v1   # It will push the image into Azure ACR after registry login.
+      
+     Note: Notice that both tags have the same image ID. Docker hasn't created a second copy of the image contents; it has added another reference to the same image.
+     Interview answer: “Docker tagging allows us to assign a new name or version tag to an existing image without rebuilding it. We use docker tag SOURCE_IMAGE TARGET_IMAGE.”
+
+# 5) Build the image from dockerfile
      docker run -d --name <container_name> <image_name>:<image_tag>  # -d --> container run in detach mode, terminal will not open
      docker run -d --name nginx-container nginx:latest
      docker run -d --name nginx-container nginx  #If image tag is not given during container creation docker will automatically use tag as "latest"
