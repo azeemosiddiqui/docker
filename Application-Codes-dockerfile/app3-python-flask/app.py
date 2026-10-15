@@ -15,4 +15,4 @@ if __name__ == "__main__":
 #@app.route("/") — define the homepage URL.
 #return — It will display bthe message in the browser.
 #host="0.0.0.0" — Make appication accessible on container network interface.
-#port=5000 — Application runs on port 5000 inside container
+#port=5000 — Application runs on port 5000 inside container (we configure in line 10 above, we can configure any in this case)
