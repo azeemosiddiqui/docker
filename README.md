@@ -1,12 +1,13 @@
-# DOCKER COMMANDS
-### **Important Points and commands**
-## 1. Build the image from dockerfile
+## DOCKER COMMANDS
+## *Important Points and commands*
+### 1. Build the image from dockerfile
 ```bash
      docker build -t <image_name>:<tag> .
      docker build -t nginx:latest .
      docker build -t <image_name> .  #If image tag is not given during image build command docker will automatically  give tag as "latest"
 ```
-# 2) Tag the image
+
+### 2. Tag the image
      docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]    #SOURCE_IMAGE—> existing image & TARGET_IMAGE—> new name or tag you want to assign.
      docker tag mynginx:latest mynginx:v1
      docker images
@@ -19,7 +20,8 @@
 * **Note:** Notice that both tags have the same image ID. Docker hasn't created a second copy of the image contents; it has added another reference to the same image. 
 *  **Interview answer:** “Docker tagging allows us to assign a new name or version tag to an existing image without rebuilding it. We use docker tag SOURCE_IMAGE TARGET_IMAGE.”
 
-# 3) Run/Create the container from dockerfile
+
+### 3. Run/Create the container from dockerfile
      docker run -d --name <container_name> <image_name>:<image_tag>  # -d --> container run in detach mode, terminal will not open
      docker run -d --name nginx-container nginx:latest
      docker run -d --name nginx-container nginx  #If image tag is not given during container creation docker will automatically use tag as "latest"
@@ -28,9 +30,11 @@
      docker stop <container_ID> or <container_name>
      docker restart <container_ID> or <container_name>
 
-# 4) Docker port mapping
+
+### 4. Docker port mapping
      docker run -d -p 8080:80 --name my-nginx nginx:latest    #Create container with port mapping
-#    Docker cannot add a new -p port mapping to an already-created container. The usual solution is to recreate the container with the required port mapping.
+* **Note:** Docker cannot add a new -p port mapping to an already-created container. The usual solution is to recreate the container with the required port mapping.
+```bash
      docker stop my-nginx             # Stop the running container
      docker rm my-nginx               # Remove the container
      docker run -d -p 8080:80 --name my-nginx nginx:latest    #Create container with port mapping
@@ -39,14 +43,15 @@
                        └── Container already exists and is running
      docker run -it IMAGE bash
                        └── Create and start a new container
+```
+* **Note:** *All Docker flags (-d, --name, -p) must come before the image name. Docker treated them as arguments for the container instead of Docker options. Everything after the "IMAGE NAME" is passed as arguments to the container’s CMD / ENTRYPOINT.*
+```bash
+  docker run --name mynginx -d -p 8081:80 mynginx-image:1  -->CORRECT
+  docker run -d -p 8081:80 mynginx-image:1 --name mynginx  -->INCORRECT
+```
 
-# 5) All Docker flags (-d, --name, -p) must come before the image name. Docker treated them as arguments for the container instead of Docker options. Everything after the "IMAGE NAME" is passed as arguments to the container’s CMD / ENTRYPOINT.
-     docker run --name mynginx -d -p 8081:80 mynginx-image:1   #CORRECT
-     docker run -d -p 8081:80 mynginx-image:1 --name mynginx  #INCORRECT
 
-
-
-# docker run -d -p 8080:80 --name my-nginx-container my-nginx:1.0   #Run container
+## docker run -d -p 8080:80 --name my-nginx-container my-nginx:1.0   #Run container
 _Command Explain
 docker run  ---> Create+start container
 -d          ---> Detached/background mode
