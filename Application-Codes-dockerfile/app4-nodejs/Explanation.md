@@ -271,3 +271,30 @@ This is a very common beginner confusion.
 
 * **Interview Explanation:**
 A Dockerfile is a text file that contains step-by-step instructions telling Docker how to package an application so it runs the same way on any machine. For a Node.js app, I start with `FROM node:22-slim`, which gives me a ready-made Linux system with Node.js already installed, so I don't have to set it up myself. Then `WORKDIR /app` sets the folder inside the container where all my work happens. Next, I copy `package.json` first and run `npm install`, and only after that I copy my application code with `COPY app.js .`. I do it in this order on purpose, because Docker caches each step as a layer. Dependencies change rarely, but code changes often, so when I edit only my code, Docker reuses the cached `npm install` layer and the rebuild takes seconds instead of minutes. `EXPOSE 3000` documents that the app listens on port 3000, but it doesn't actually open the port, so I still need `docker run -p 3000:3000` to reach the app from outside. Finally, `CMD ["npm", "start"]` defines what runs when the container starts. One important point is the difference between build time and run time: `FROM`, `WORKDIR`, `COPY` and `RUN` happen when I run `docker build` and create the image, while `CMD` runs only when I run `docker run` and start the container. The main benefit of all this is consistency: the image contains the exact Node version, dependencies and code, so it avoids the "it works on my laptop but not on the server" problem.
+
+
+### Common Follow-Up Questions
+
+**Q: Is Node.js a backend language? Does it render the UI?**
+Node.js is a runtime that lets JavaScript run outside the browser, so it is commonly used for the backend. It does not draw the UI. It receives requests and sends back HTML or JSON, and the browser (or a frontend like React) renders the UI.
+
+**Q: What is Express and why is it used with Node.js?**
+Express is a lightweight web framework for Node.js. It handles listening on a port, reading HTTP requests and mapping URLs to functions, so I can build a web app or API with very little code. It is the Node.js equivalent of Flask in Python.
+
+**Q: What is the difference between `CMD` and `RUN`?**
+`RUN` executes during the build and saves the result in the image (for example, `npm install`). `CMD` executes when the container starts and defines the main process.
+
+**Q: What is the difference between an image and a container?**
+An image is the packaged, read-only blueprint. A container is a running instance created from that image. You can start many containers from one image.
+
+**Q: What is `package.json` and what goes inside it?**
+It is the project's information file. It holds the app name, version, the `scripts` (like `start`) and the `dependencies` (libraries the app needs). npm reads it during `npm install`.
+
+**Q: What is the difference between `package.json` and `package-lock.json`?**
+`package.json` lists the libraries you want, often with flexible version ranges. `package-lock.json` records the exact versions that were installed, so every build gets the same result.
+
+**Q: What is the difference between `npm install` and `npm ci`?**
+`npm install` installs libraries and may update the lock file. `npm ci` installs exactly what is in `package-lock.json`, is faster and stricter, and is better for Docker and CI pipelines. It needs `package-lock.json` to exist, so I would copy that file too: `COPY package*.json ./`.
+
+**Q: What happens if I forget `npm install` in the Dockerfile?**
+The image builds fine, but the container crashes at start with an error like `Cannot
