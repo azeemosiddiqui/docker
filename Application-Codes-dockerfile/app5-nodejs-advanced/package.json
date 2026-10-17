@@ -1,0 +1,6 @@
+{
+  "name":"app5-nodejs-advanced","version":"1.0.0","description":"Nexus Taskboard demo","main":"app.js",
+  "scripts":{"start":"node app.js","dev":"nodemon app.js"},
+  "dependencies":{"compression":"^1.7.4","dayjs":"^1.11.13","dotenv":"^16.4.7","express":"^4.21.2","express-rate-limit":"^7.5.0","helmet":"^8.0.0","morgan":"^1.10.0"},
+  "devDependencies":{"nodemon":"^3.1.9"}
+}
