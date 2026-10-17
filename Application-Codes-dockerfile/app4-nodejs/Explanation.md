@@ -1,6 +1,6 @@
 ## Dockerfile Guide for nodejs applications
 
-## What Is a Dockerfile? (Node.js Edition)
+### What Is a Dockerfile? (Node.js Edition)
 
 A **Dockerfile** is a plain text file with step-by-step instructions. It tells Docker how to package your Node.js app so it runs the same way on every computer.
 
