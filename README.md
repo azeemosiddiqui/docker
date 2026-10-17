@@ -25,6 +25,7 @@
      docker run -d --name <container_name> <image_name>:<image_tag>  # -d --> container run in detach mode, terminal will not open
      docker run -d --name nginx-container nginx:latest
      docker run -d --name nginx-container nginx  #If image tag is not given during container creation docker will automatically use tag as "latest"
+     docker run -d --name nginx-container <image_id>
      docker create --name my-nginx nginx:latest # Create container without running it
      docker start <container_ID> or <container_name>
      docker stop <container_ID> or <container_name>
