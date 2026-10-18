@@ -381,3 +381,4 @@ EOF
 - Docker commands require suitable permissions to access the Docker engine.
 
 **End of Docker command reference.**
+----
